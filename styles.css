@@ -127,6 +127,25 @@ footer {
     filter: brightness(0.85);
 }
 
+.gallery-img-wrapper video.gallery-img {
+    object-fit: contain;
+    background: #000;
+}
+
+.gallery-anim-card:hover video.gallery-img,
+.gallery-anim-card:focus-within video.gallery-img {
+    transform: none;
+    filter: none;
+}
+
+video.gallery-img:fullscreen,
+video.gallery-img:-webkit-full-screen {
+    object-fit: contain !important;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+}
+
 /* Overlay icon for clickability */
 .gallery-img-overlay {
     position: absolute;
@@ -148,6 +167,52 @@ footer {
     font-size: 2.5rem;
     color: #ffc107;
     text-shadow: 0 2px 8px #181818;
+}
+
+#galleryModalCarousel {
+    background: #181818;
+    border-radius: 0.75rem;
+}
+
+#galleryModalCarousel .carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffc107'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+}
+
+#galleryModalCarousel .carousel-control-next-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffc107'%3e%3cpath d='M4.646 1.646a.5.5 0 0 0 0 .708L10.293 8l-5.647 5.646a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708l-6-6a.5.5 0 0 0-.708 0z'/%3e%3c/svg%3e");
+}
+
+#galleryModalCarousel .carousel-control-prev,
+#galleryModalCarousel .carousel-control-next {
+    transition: background-color 0.2s ease;
+}
+
+#galleryModalCarousel .carousel-control-prev:hover,
+#galleryModalCarousel .carousel-control-next:hover {
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
+.gallery-modal-carousel-img {
+    width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+    background: #181818;
+}
+
+.gallery-modal-scrollbox {
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 0.5rem;
+}
+
+.gallery-modal-carousel-img-long {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: unset;
+    border-radius: 0.5rem;
+    background: #181818;
 }
 
   /* Make CV tab scrollable */

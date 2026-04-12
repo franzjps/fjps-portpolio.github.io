@@ -149,4 +149,25 @@ document.addEventListener("DOMContentLoaded", function() {
         animCards.forEach(card => card.classList.add('visible'));
     }
 
+    // Contact QR modal content binding
+    const qrButtons = document.querySelectorAll('.qr-contact-btn');
+    const contactQrModalLabel = document.getElementById('contactQrModalLabel');
+    const contactQrModalImg = document.getElementById('contactQrModalImg');
+    const contactQrModalNote = document.getElementById('contactQrModalNote');
+
+    if (qrButtons.length && contactQrModalLabel && contactQrModalImg && contactQrModalNote) {
+        qrButtons.forEach((button) => {
+            button.addEventListener('click', function () {
+                const src = button.getAttribute('data-qr-src') || '';
+                const label = button.getAttribute('data-qr-label') || 'Contact QR';
+                const note = button.getAttribute('data-qr-note') || '';
+
+                contactQrModalLabel.textContent = label + ' QR';
+                contactQrModalImg.setAttribute('src', src);
+                contactQrModalImg.setAttribute('alt', label + ' QR code');
+                contactQrModalNote.textContent = note;
+            });
+        });
+    }
+
 });

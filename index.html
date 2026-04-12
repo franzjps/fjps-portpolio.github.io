@@ -15,7 +15,7 @@
             <div class="col-md-2 text-center mb-3 mb-md-0">
                 <img src="image/grad.jpg" alt="Profile" class="rounded-circle img-fluid profile-img">
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <h1 class="fw-bold mb-1">Franz John Paul Samson</h1>
                 <h5 class="text-secondary mb-2" style="font-size: 15px;">Full Stack Web Developer | Graphic Artist | System Administrator | Database Administrator</h5>
                 <p class="mb-0">
@@ -23,6 +23,59 @@
                     <span class="me-3"><i class="bi bi-phone"></i> +63 923 5644 103</span>
                     <span><i class="bi bi-geo-alt"></i> Caloocan, Philippines</span>
                 </p>
+            </div>
+            <div class="col-md-4 mt-3 mt-md-0">
+                <div class="contact-qr-card">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h6 class="mb-0"><i class="bi bi-qr-code-scan text-warning"></i> Scan To Contact</h6>
+                        <span class="badge text-bg-warning text-dark">SOCMED</span>
+                    </div>
+                    <p class="text-secondary small mb-3">Tap any QR to view it larger and connect quickly.</p>
+                    <div class="row g-2">
+                        <div class="col-4">
+                            <button
+                                type="button"
+                                class="qr-contact-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#contactQrModal"
+                                data-qr-src="image/contactQr/messenger QR.jpeg"
+                                data-qr-label="Messenger"
+                                data-qr-note="Message me directly on Messenger."
+                            >
+                                <img src="image/contactQr/messenger QR.jpeg" alt="Messenger QR" class="qr-thumb-img">
+                                <span class="qr-platform-name">Messenger</span>
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button
+                                type="button"
+                                class="qr-contact-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#contactQrModal"
+                                data-qr-src="image/contactQr/viber QR.JPG"
+                                data-qr-label="Viber"
+                                data-qr-note="Reach me on Viber for quick calls or chat."
+                            >
+                                <img src="image/contactQr/viber QR.JPG" alt="Viber QR" class="qr-thumb-img">
+                                <span class="qr-platform-name">Viber</span>
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button
+                                type="button"
+                                class="qr-contact-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#contactQrModal"
+                                data-qr-src="image/contactQr/whats up QR.jpeg"
+                                data-qr-label="WhatsApp"
+                                data-qr-note="Send me a message on WhatsApp."
+                            >
+                                <img src="image/contactQr/whats up QR.jpeg" alt="WhatsApp QR" class="qr-thumb-img">
+                                <span class="qr-platform-name">WhatsApp</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -62,6 +115,10 @@
                             <h5><i class="bi bi-calendar3"></i> RSVP</h5>
                             <p>A simple event response app for managing invitations and tracking guest attendance in real time.</p>
                         </div>
+                        <div class="banner-project-card">
+                            <h5><i class="bi bi-ticket-perforated"></i> IT TICKETING SYSTEM</h5>
+                            <p>An internal support platform for creating, monitoring, and managing IT service tickets with real-time status tracking.</p>
+                        </div>
                     </div>
                 </section>
                 <!-- Project Images Gallery Section -->
@@ -79,7 +136,7 @@
                     <div id="galleryContent">
                         <div id="galleryPhotosContent" class="row g-4">
                             <!-- JOB ORDER Gallery -->
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-4 order-4">
                                 <h3 class="h5 text-warning mb-3"><i class="bi bi-house-up-fill"></i> JOB ORDER</h3>
                                 <div class="row g-4">
                                     <div class="col-12">
@@ -116,7 +173,7 @@
                             </div>
 
                             <!-- PRODCOST Gallery -->
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-4 order-3">
                                 <h3 class="h5 text-warning mb-3"><i class="bi bi-cash-stack"></i> PRODCOST</h3>
                                 <div class="row g-4">
                                     <div class="col-12">
@@ -149,7 +206,7 @@
                             </div>
 
                             <!-- RSVP Gallery -->
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-4 order-2">
                                 <h3 class="h5 text-warning mb-3"><i class="bi bi-calendar3"></i> RSVP</h3>
                                 <div class="row g-4">
                                     <div class="col-12">
@@ -176,6 +233,45 @@
                                     </div>
                                 </div>
                                 <img class="gallery-img d-none" src="image/RSVP/dashBoardTracking.png" alt="RSVP dashboard tracking" data-gallery-group="rsvp" data-img-src="image/RSVP/dashBoardTracking.png" data-img-caption="RSVP" data-img-description="Dashboard tracking view in the RSVP app.">
+                            </div>
+
+                            <!-- IT TICKETING SYSTEM Gallery -->
+                            <div class="col-12 col-lg-4 order-1">
+                                <h3 class="h5 text-warning mb-3"><i class="bi bi-ticket-perforated"></i> IT TICKETING SYSTEM</h3>
+                                <div class="row g-4">
+                                    <div class="col-12">
+                                        <div class="card gallery-anim-card bg-dark border-secondary shadow-sm">
+                                            <div class="gallery-img-wrapper">
+                                                <img
+                                                    src="image/itTicketing/LOG IN DARK MODE.png"
+                                                    class="gallery-img"
+                                                    alt="IT TICKETING SYSTEM login dark mode"
+                                                    data-gallery-group="itticketing"
+                                                    data-img-src="image/itTicketing/LOG IN DARK MODE.png"
+                                                    data-img-caption="IT TICKETING SYSTEM"
+                                                    data-img-description="Dark mode login screen of the IT TICKETING SYSTEM."
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#galleryModal"
+                                                >
+                                                <div class="gallery-img-overlay"><i class="bi bi-arrows-fullscreen"></i></div>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">IT TICKETING SYSTEM Preview</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <img class="gallery-img d-none" src="image/itTicketing/LOG IN LIGHT MODE.png" alt="IT TICKETING SYSTEM login light mode" data-gallery-group="itticketing" data-img-src="image/itTicketing/LOG IN LIGHT MODE.png" data-img-caption="IT TICKETING SYSTEM" data-img-description="Light mode login screen of the IT TICKETING SYSTEM.">
+                                <img class="gallery-img d-none" src="image/itTicketing/CREATE TICKET DARK MODE.png" alt="IT TICKETING SYSTEM create ticket dark mode" data-gallery-group="itticketing" data-img-src="image/itTicketing/CREATE TICKET DARK MODE.png" data-img-caption="IT TICKETING SYSTEM" data-img-description="Dark mode create ticket form for submitting IT support concerns.">
+                                <img class="gallery-img d-none" src="image/itTicketing/CREATE TICKET LIGHT MODE.png" alt="IT TICKETING SYSTEM create ticket light mode" data-gallery-group="itticketing" data-img-src="image/itTicketing/CREATE TICKET LIGHT MODE.png" data-img-caption="IT TICKETING SYSTEM" data-img-description="Light mode create ticket workflow for new requests.">
+                                <img class="gallery-img d-none" src="image/itTicketing/TICKETS DARK MODE.png" alt="IT TICKETING SYSTEM tickets dark mode" data-gallery-group="itticketing" data-img-src="image/itTicketing/TICKETS DARK MODE.png" data-img-caption="IT TICKETING SYSTEM" data-img-description="Dark mode ticket list showing submitted and active issues.">
+                                <img class="gallery-img d-none" src="image/itTicketing/TICKETS LIGHT MODE.png" alt="IT TICKETING SYSTEM tickets light mode" data-gallery-group="itticketing" data-img-src="image/itTicketing/TICKETS LIGHT MODE.png" data-img-caption="IT TICKETING SYSTEM" data-img-description="Light mode ticket list for tracking issue progress.">
+                                <img class="gallery-img d-none" src="image/itTicketing/IT MONITORING DARK MODE.png" alt="IT TICKETING SYSTEM monitoring dark mode" data-gallery-group="itticketing" data-img-src="image/itTicketing/IT MONITORING DARK MODE.png" data-img-caption="IT TICKETING SYSTEM" data-img-description="Dark mode IT monitoring dashboard for active services and alerts.">
+                                <img class="gallery-img d-none" src="image/itTicketing/IT MONITORING LIGHT MODE.png" alt="IT TICKETING SYSTEM monitoring light mode" data-gallery-group="itticketing" data-img-src="image/itTicketing/IT MONITORING LIGHT MODE.png" data-img-caption="IT TICKETING SYSTEM" data-img-description="Light mode IT monitoring view for service health updates.">
+                                <img class="gallery-img d-none" src="image/itTicketing/CALENDAR DARK MODE.png" alt="IT TICKETING SYSTEM calendar dark mode" data-gallery-group="itticketing" data-img-src="image/itTicketing/CALENDAR DARK MODE.png" data-img-caption="IT TICKETING SYSTEM" data-img-description="Dark mode calendar for scheduling ticket tasks and deadlines.">
+                                <img class="gallery-img d-none" src="image/itTicketing/CALENDAR LIGHT MODE.png" alt="IT TICKETING SYSTEM calendar light mode" data-gallery-group="itticketing" data-img-src="image/itTicketing/CALENDAR LIGHT MODE.png" data-img-caption="IT TICKETING SYSTEM" data-img-description="Light mode calendar view for planned IT support activities.">
+                                <img class="gallery-img d-none" src="image/itTicketing/USERS DASH BOARD DARK MODE.png" alt="IT TICKETING SYSTEM users dashboard dark mode" data-gallery-group="itticketing" data-img-src="image/itTicketing/USERS DASH BOARD DARK MODE.png" data-img-caption="IT TICKETING SYSTEM" data-img-description="Dark mode user dashboard highlighting personal ticket activity.">
+                                <img class="gallery-img d-none" src="image/itTicketing/USER DASH BOARD LIGHT MODE.png" alt="IT TICKETING SYSTEM user dashboard light mode" data-gallery-group="itticketing" data-img-src="image/itTicketing/USER DASH BOARD LIGHT MODE.png" data-img-caption="IT TICKETING SYSTEM" data-img-description="Light mode user dashboard with support request summaries.">
                             </div>
                         </div>
                         <!-- Video Gallery Content -->
@@ -233,26 +329,14 @@
                         </div>
                     </div>
                 </section>
-                <!-- map section -->
-                <section id="portfolioMapSection" class="mb-5">
-                    <div class="map-banner-container mb-4">
-                        <h2 class="h4 border-bottom border-secondary pb-2 mb-3">Location Map</h2>
-                        <div class="map-banner">
-                            <iframe
-                                src="https://www.google.com/maps?q=West+Minister+Tradition+Church,+Caloocan+City,+Philippines&output=embed"
-                                width="100%" height="350"
-                                style="border:0; filter: grayscale(100%) brightness(0.7) contrast(1.2);"
-                                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                        </div>
-                        <div class="text-secondary mt-2">
-                            <i class="bi bi-geo-alt"></i> West Minister Tradition Church, Caloocan City, Philippines
-                        </div>
-                    </div>
-                </section>
             </div>
             <!-- CV Tab -->
             <div class="tab-pane fade" id="cv" role="tabpanel" aria-labelledby="cv-tab">
+                <div class="d-flex justify-content-end mb-3">
+                    <a href="cv-download.html" target="_blank" rel="noopener" class="btn btn-outline-warning btn-sm">
+                        <i class="bi bi-file-earmark-arrow-down"></i> Download CV
+                    </a>
+                </div>
                 <div id="cv-scrollable" class="mt-3">
                     <!-- Profile Section -->
                     <section class="mb-4">
@@ -400,6 +484,20 @@
                         </button>
                     </div>
                     <div id="galleryModalDesc" class="text-start px-3 py-2 bg-secondary bg-opacity-10 rounded" style="color:#e0e0e0;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="contactQrModal" tabindex="-1" aria-labelledby="contactQrModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="contactQrModalLabel">Contact QR</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="contactQrModalImg" src="" alt="Contact QR" class="contact-qr-modal-img mb-3">
+                    <p id="contactQrModalNote" class="text-secondary mb-0"></p>
                 </div>
             </div>
         </div>

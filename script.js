@@ -1,140 +1,96 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Gallery Modal Logic
-    const galleryImgs = document.querySelectorAll('img.gallery-img[data-img-src]');
-    const modalLabel = document.getElementById('galleryModalLabel');
-    const modalDesc = document.getElementById('galleryModalDesc');
-    const modalCarousel = document.getElementById('galleryModalCarousel');
-    const modalCarouselInner = document.getElementById('galleryModalCarouselInner');
+    const profileThemeImage = document.getElementById('profileThemeImage');
+    const themeToggle = document.getElementById('themeToggle');
+    const themeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const THEME_STORAGE_KEY = 'portfolio-theme';
 
-    let activeGallerySlides = [];
+    const getStoredTheme = () => {
+        const value = window.localStorage.getItem(THEME_STORAGE_KEY);
+        if (value === 'light' || value === 'dark') {
+            return value;
+        }
+        return null;
+    };
 
-    const buildCarouselSlides = (slides, activeIndex) => {
-        if (!modalCarouselInner) {
+    const getEffectiveTheme = () => {
+        const storedTheme = getStoredTheme();
+        if (storedTheme) {
+            return storedTheme;
+        }
+        return themeMediaQuery.matches ? 'dark' : 'light';
+    };
+
+    const swapProfileImageByTheme = (isDarkMode, animate) => {
+        if (!profileThemeImage) {
             return;
         }
 
-        modalCarouselInner.innerHTML = '';
+        const lightSrc = profileThemeImage.getAttribute('data-light-src') || '';
+        const darkSrc = profileThemeImage.getAttribute('data-dark-src') || '';
+        const nextSrc = isDarkMode ? darkSrc : lightSrc;
 
-        slides.forEach((slideData, index) => {
-            const item = document.createElement('div');
-            item.className = `carousel-item${index === activeIndex ? ' active' : ''}`;
-            if (slideData.isLong) {
-                item.innerHTML = `<div class="gallery-modal-scrollbox"><img src="${slideData.src}" alt="${slideData.alt}" class="d-block w-100 gallery-modal-carousel-img-long shadow"></div>`;
-            } else {
-                item.innerHTML = `<img src="${slideData.src}" alt="${slideData.alt}" class="d-block w-100 gallery-modal-carousel-img rounded shadow">`;
-            }
-            modalCarouselInner.appendChild(item);
-        });
-
-        const controls = modalCarousel.querySelectorAll('.carousel-control-prev, .carousel-control-next');
-        controls.forEach(control => {
-            control.style.display = slides.length > 1 ? '' : 'none';
-        });
-    };
-
-    const updateModalMeta = (index) => {
-        if (!activeGallerySlides[index]) {
+        if (!nextSrc || profileThemeImage.getAttribute('src') === nextSrc) {
             return;
         }
 
-        modalLabel.textContent = activeGallerySlides[index].caption;
-        modalDesc.textContent = activeGallerySlides[index].description;
-    };
-
-    if (modalCarousel) {
-        modalCarousel.addEventListener('slid.bs.carousel', function() {
-            const activeItem = modalCarousel.querySelector('.carousel-item.active');
-            const activeIndex = Array.from(modalCarouselInner.children).indexOf(activeItem);
-            updateModalMeta(activeIndex);
-        });
-    }
-    
-    // Gallery Nav Logic
-    const photosTab = document.getElementById('galleryPhotosTab');
-    const videosTab = document.getElementById('galleryVideosTab');
-    const photosContent = document.getElementById('galleryPhotosContent');
-    const videosContent = document.getElementById('galleryVideosContent');
-    const portfolioTabBtn = document.getElementById('portfolio-tab');
-    const cvTabBtn = document.getElementById('cv-tab');
-    const portfolioMapSection = document.getElementById('portfolioMapSection');
-
-    const syncMapSectionVisibility = () => {
-        if (!portfolioMapSection || !cvTabBtn) {
+        if (!animate) {
+            profileThemeImage.setAttribute('src', nextSrc);
             return;
         }
 
-        portfolioMapSection.style.display = cvTabBtn.classList.contains('active') ? 'none' : '';
+        profileThemeImage.classList.add('theme-swapping');
+        window.setTimeout(() => {
+            profileThemeImage.setAttribute('src', nextSrc);
+
+            const clearSwapClass = () => {
+                profileThemeImage.classList.remove('theme-swapping');
+            };
+
+            profileThemeImage.addEventListener('load', clearSwapClass, { once: true });
+            window.setTimeout(clearSwapClass, 280);
+        }, 160);
     };
 
-    if (portfolioTabBtn && cvTabBtn && portfolioMapSection) {
-        portfolioTabBtn.addEventListener('shown.bs.tab', syncMapSectionVisibility);
-        cvTabBtn.addEventListener('shown.bs.tab', syncMapSectionVisibility);
-        syncMapSectionVisibility();
+    const applyTheme = (theme, animateImage) => {
+        const isDarkMode = theme === 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+
+        if (themeToggle) {
+            themeToggle.checked = isDarkMode;
+        }
+
+        swapProfileImageByTheme(isDarkMode, animateImage);
+    };
+
+    applyTheme(getEffectiveTheme(), false);
+
+    if (themeToggle) {
+        themeToggle.addEventListener('change', function () {
+            const nextTheme = themeToggle.checked ? 'dark' : 'light';
+            window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+            applyTheme(nextTheme, true);
+        });
     }
 
-    if (photosTab && videosTab && photosContent && videosContent) {
-        photosTab.addEventListener('click', function () {
-            photosTab.classList.add('active');
-            videosTab.classList.remove('active');
-            photosContent.style.display = '';
-            videosContent.style.display = 'none';
-        });
-        videosTab.addEventListener('click', function () {
-            videosTab.classList.add('active');
-            photosTab.classList.remove('active');
-            videosContent.style.display = '';
-            photosContent.style.display = 'none';
-        });
-    }
-
-    galleryImgs.forEach((img) => {
-        img.addEventListener('click', function () {
-            if (!modalCarousel) {
+    if (typeof themeMediaQuery.addEventListener === 'function') {
+        themeMediaQuery.addEventListener('change', (event) => {
+            if (getStoredTheme()) {
                 return;
             }
-
-            const group = img.getAttribute('data-gallery-group');
-            const groupImgs = group
-                ? Array.from(document.querySelectorAll(`img.gallery-img[data-img-src][data-gallery-group="${group}"]`))
-                : [img];
-
-            activeGallerySlides = groupImgs.map(groupImg => ({
-                src: groupImg.getAttribute('data-img-src') || groupImg.getAttribute('src') || '',
-                alt: groupImg.getAttribute('alt') || '',
-                caption: groupImg.getAttribute('data-img-caption') || '',
-                description: groupImg.getAttribute('data-img-description') || '',
-                isLong: groupImg.getAttribute('data-img-long') === 'true'
-            }));
-
-            const activeIndex = groupImgs.indexOf(img);
-            buildCarouselSlides(activeGallerySlides, activeIndex > -1 ? activeIndex : 0);
-
-            const carouselInstance = bootstrap.Carousel.getOrCreateInstance(modalCarousel);
-            carouselInstance.to(activeIndex > -1 ? activeIndex : 0);
-            updateModalMeta(activeIndex > -1 ? activeIndex : 0);
+            applyTheme(event.matches ? 'dark' : 'light', true);
         });
-    });
-    
-    // Gallery Minimize/Expand
-    const galleryToggleBtn = document.getElementById('galleryToggleBtn');
-    const galleryContent = document.getElementById('galleryContent');
-    let minimized = false;
+    } else if (typeof themeMediaQuery.addListener === 'function') {
+        themeMediaQuery.addListener((event) => {
+            if (getStoredTheme()) {
+                return;
+            }
+            applyTheme(event.matches ? 'dark' : 'light', true);
+        });
+    }
 
-    galleryToggleBtn.addEventListener('click', function () {
-        minimized = !minimized;
-        if (minimized) {
-            galleryContent.style.display = 'none';
-            galleryToggleBtn.innerHTML = '<i class="bi bi-plus"></i> Expand';
-        } else {
-            galleryContent.style.display = '';
-            galleryToggleBtn.innerHTML = '<i class="bi bi-dash"></i> Minimize';
-        }
-    });
+    const projectSections = document.querySelectorAll('.project-showcase');
 
-
-    // Gallery Card Scroll Animation
-    const animCards = document.querySelectorAll('.gallery-anim-card');
-    if ('IntersectionObserver' in window) {
+    if ('IntersectionObserver' in window && projectSections.length) {
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -143,13 +99,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
         }, { threshold: 0.2 });
-        animCards.forEach(card => observer.observe(card));
+
+        projectSections.forEach(section => observer.observe(section));
     } else {
-        // Fallback for old browsers
-        animCards.forEach(card => card.classList.add('visible'));
+        projectSections.forEach(section => section.classList.add('visible'));
     }
 
-    // Contact QR modal content binding
     const qrButtons = document.querySelectorAll('.qr-contact-btn');
     const contactQrModalLabel = document.getElementById('contactQrModalLabel');
     const contactQrModalImg = document.getElementById('contactQrModalImg');
@@ -170,4 +125,85 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    const projectPreviewImages = document.querySelectorAll('.project-carousel-img');
+    const projectExpandModal = document.getElementById('projectExpandModal');
+    const projectExpandModalLabel = document.getElementById('projectExpandModalLabel');
+    const projectExpandMediaWrap = document.getElementById('projectExpandMediaWrap');
+    const projectExpandImg = document.getElementById('projectExpandImg');
+    const projectExpandPrev = document.getElementById('projectExpandPrev');
+    const projectExpandNext = document.getElementById('projectExpandNext');
+
+    let activeExpandGroup = [];
+    let activeExpandIndex = 0;
+
+    const updateExpandNavState = () => {
+        const hideNav = activeExpandGroup.length <= 1;
+
+        if (projectExpandPrev) {
+            projectExpandPrev.classList.toggle('hidden', hideNav);
+        }
+
+        if (projectExpandNext) {
+            projectExpandNext.classList.toggle('hidden', hideNav);
+        }
+    };
+
+    const renderExpandedImage = () => {
+        if (!activeExpandGroup[activeExpandIndex] || !projectExpandImg || !projectExpandModalLabel || !projectExpandMediaWrap) {
+            return;
+        }
+
+        const currentImage = activeExpandGroup[activeExpandIndex];
+        const src = currentImage.getAttribute('src') || '';
+        const alt = currentImage.getAttribute('alt') || 'Project Preview';
+        const isLong = currentImage.getAttribute('data-expand-long') === 'true';
+
+        projectExpandImg.setAttribute('src', src);
+        projectExpandImg.setAttribute('alt', alt);
+        projectExpandModalLabel.textContent = alt;
+        projectExpandMediaWrap.classList.toggle('long-mode', isLong);
+        updateExpandNavState();
+    };
+
+    const moveExpandedImage = (direction) => {
+        if (activeExpandGroup.length <= 1) {
+            return;
+        }
+
+        const groupSize = activeExpandGroup.length;
+        activeExpandIndex = (activeExpandIndex + direction + groupSize) % groupSize;
+        renderExpandedImage();
+    };
+
+    if (projectPreviewImages.length && projectExpandModal && projectExpandMediaWrap && projectExpandImg) {
+        projectPreviewImages.forEach((img) => {
+            img.addEventListener('click', function () {
+                const carousel = img.closest('.carousel');
+                activeExpandGroup = carousel
+                    ? Array.from(carousel.querySelectorAll('.project-carousel-img'))
+                    : [img];
+                activeExpandIndex = activeExpandGroup.indexOf(img);
+                if (activeExpandIndex < 0) {
+                    activeExpandIndex = 0;
+                }
+
+                renderExpandedImage();
+
+                const modalInstance = bootstrap.Modal.getOrCreateInstance(projectExpandModal);
+                modalInstance.show();
+            });
+        });
+
+        if (projectExpandPrev) {
+            projectExpandPrev.addEventListener('click', function () {
+                moveExpandedImage(-1);
+            });
+        }
+
+        if (projectExpandNext) {
+            projectExpandNext.addEventListener('click', function () {
+                moveExpandedImage(1);
+            });
+        }
+    }
 });
